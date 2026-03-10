@@ -307,6 +307,24 @@
             display: block;
         }
 
+        /* YouTube Background Cover Hack */
+        .hero__background-layer--video {
+            overflow: hidden;
+        }
+
+        iframe.hero__video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 aspect ratio */
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border: none;
+        }
+
         .hero__video-fallback {
             display: none;
             width: 100%;
@@ -2227,17 +2245,31 @@
         }
 
         .card-media img,
-        .card-media video {
+        .card-media video,
+        .card-media iframe {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card-media video {
             opacity: 0;
             position: absolute;
             inset: 0;
+            border: none;
+        }
+
+        .card-media iframe {
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            border: none;
+            pointer-events: none;
         }
 
         .attraction-card:hover .card-media img {
@@ -2248,6 +2280,12 @@
         .attraction-card:hover .card-media video {
             opacity: 1;
             transform: scale(1.08);
+        }
+
+        .attraction-card:hover .card-media iframe {
+            opacity: 1;
+            /* Combined translate from base state + hover scale */
+            transform: translate(-50%, -50%) scale(1.08);
         }
 
         .lottie-blended-element {
@@ -2476,6 +2514,31 @@
             animation: particle-float 10s infinite ease-in-out;
         }
 
+        /* ========== REELS VIDEO SHARED STYLES ========== */
+        .reel-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            border: none;
+            background: #000;
+        }
+
+        /* YouTube Cover Fix: Supersize iframe to eliminate letterboxing */
+        iframe.reel-video {
+            width: 400%; /* Wide enough to cover vertical container with landscape video */
+            height: 100%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .reel-video.active {
+            display: block;
+        }
+
         @keyframes particle-float {
 
             0%,
@@ -2550,12 +2613,11 @@
                     <img src="https://images.unsplash.com/photo-1596394516093-9b9e54caf5e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                         alt="Snowy mountain landscape" class="hero__video-fallback">
 
-                    <!-- Main Video -->
-                    <video id="heroVideo" class="hero__video" muted loop playsinline preload="metadata"
+                    <iframe id="heroVideo" class="hero__video" 
+                        src="https://www.youtube.com/embed/x-qHJp8sBko?autoplay=1&mute=1&loop=1&playlist=x-qHJp8sBko&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1" 
+                        allow="autoplay; encrypted-media" allowfullscreen
                         aria-label="Aerial drone footage of Auli mountains">
-                        <source src="vido/JDTF.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    </iframe>
                 </div>
 
                 <!-- Image Background Layer -->
@@ -2757,12 +2819,12 @@
                                     <button class="fullscreen-btn" aria-label="View fullscreen">⛶</button>
                                 </div>
                             </div>
-                            <!-- ✅ Video slide (LAST) -->
+                            <!-- ✅ Video slide (YouTube) -->
                             <div class="swiper-slide video-slide">
-                                <video muted playsinline controls preload="metadata">
-                                    <source src="vido/room1vid2.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                                <iframe class="room-video-iframe" 
+                                    src="https://www.youtube.com/embed/wsuy6EmIYBs?enablejsapi=1&mute=1&controls=1&rel=0" 
+                                    allow="autoplay; encrypted-media" allowfullscreen 
+                                    style="width:100%; height:100%; border:none;"></iframe>
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -2940,9 +3002,10 @@
                     <div class="reels-player"
                         style="position:relative; background:#000; border-radius:32px; overflow:hidden;">
 
-                        <video id="reel-rooftop" class="reel-video active" muted loop playsinline preload="metadata">
-                            <source src="vido/360Roof (1).mp4" type="video/mp4">
-                        </video>
+                        <iframe id="reel-rooftop" class="reel-video active" 
+                            src="https://www.youtube.com/embed/e5HoI4LZCug?autoplay=1&mute=1&loop=1&playlist=e5HoI4LZCug&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1" 
+                            allow="autoplay; encrypted-media" allowfullscreen>
+                        </iframe>
 
                         <video id="reel-balcony" class="reel-video" muted loop playsinline preload="metadata">
                             <source src="vido/balcony.mp4" type="video/mp4">
@@ -3201,9 +3264,8 @@
                         <div class="card-media">
                             <img src="img/narsingh-temple.png" alt="Narsingh Temple"
                                 onerror="this.src='https://picsum.photos/id/1015/600/400'">
-                            <video muted loop playsinline>
-                                <source src="vido/narsingh-temple.mp4" type="video/mp4">
-                            </video>
+                            <iframe src="https://www.youtube.com/embed/39Egpa9Vz6c?enablejsapi=1&mute=1&controls=0&loop=1&playlist=39Egpa9Vz6c&modestbranding=1" 
+                                allow="autoplay; encrypted-media"></iframe>
                         </div>
                         <div class="card-tag">Temple</div>
                         <div class="card-overlay">
@@ -3276,9 +3338,8 @@
                         <div class="card-media">
                             <img src="img/THAING_VALLEY.jpg" alt="Thaing Valley"
                                 onerror="this.src='https://picsum.photos/id/1036/600/400'">
-                            <video muted loop playsinline>
-                                <source src="vido/ThaingValley.mp4" type="video/mp4">
-                            </video>
+                            <iframe src="https://www.youtube.com/embed/_AI4Qh-SmZA?enablejsapi=1&mute=1&controls=0&loop=1&playlist=_AI4Qh-SmZA&modestbranding=1" 
+                                allow="autoplay; encrypted-media"></iframe>
                         </div>
                         <div class="card-tag">Valley</div>
                         <div class="card-overlay">
@@ -3625,7 +3686,9 @@
                 updateToggleButton('image');
 
                 // Pause video
-                heroVideo.pause();
+                if (heroVideo && heroVideo.contentWindow) {
+                    heroVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                }
 
                 // Reset transition state
                 setTimeout(() => {
@@ -3671,11 +3734,9 @@
              * Attempt to autoplay video with fallback
              */
             function attemptVideoAutoplay() {
-                const playPromise = heroVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.catch(handleVideoAutoplayError);
-                }
+                // For YouTube iframe, autoplay is handled via URL parameters
+                // but we can try to send a play command just in case
+                playVideo();
             }
 
             /**
@@ -3698,23 +3759,20 @@
             }
 
             /**
-             * Play video with error handling
+             * Play video with YouTube command
              */
             function playVideo() {
-                heroVideo.play().catch(error => {
-                    console.log('Video play failed:', error.message);
-                });
+                if (heroVideo && heroVideo.contentWindow) {
+                    heroVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                }
             }
 
             /**
              * Setup video event listeners
              */
             function setupVideoEventListeners() {
-                // Handle video errors
-                heroVideo.addEventListener('error', handleVideoError);
-
-                // Handle video end (loop)
-                heroVideo.addEventListener('ended', handleVideoEnded);
+                // YouTube Iframe doesn't support standard video events directly on the element.
+                // Looping and error handling are managed via URL parameters and the iframe itself.
             }
 
             /**
@@ -4307,9 +4365,11 @@
             // 2. Card Interactions (Video Play on Hover)
             attrCards.forEach(card => {
                 const video = card.querySelector('video');
+                const iframe = card.querySelector('iframe');
 
                 card.addEventListener('mouseenter', () => {
                     if (video) video.play().catch(() => { });
+                    if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                 });
 
                 card.addEventListener('mouseleave', () => {
@@ -4317,6 +4377,7 @@
                         video.pause();
                         video.currentTime = 0;
                     }
+                    if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                 });
 
                 // 3. Modal Open Logic
@@ -4338,10 +4399,23 @@
 
                     // If it's a video in modal, make it autoplay and show it
                     const mVideo = modalMedia.querySelector('video');
+                    const mIframe = modalMedia.querySelector('iframe');
+
                     if (mVideo) {
                         mVideo.style.opacity = '1';
                         mVideo.controls = true;
                         mVideo.play().catch(() => { });
+                    }
+                    if (mIframe) {
+                        mIframe.style.opacity = '1';
+                        // Update iframe src to show controls in modal if needed
+                        let src = mIframe.getAttribute('src');
+                        if (src.includes('controls=0')) {
+                            mIframe.setAttribute('src', src.replace('controls=0', 'controls=1'));
+                        }
+                        setTimeout(() => {
+                            mIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        }, 500);
                     }
 
                     modal.classList.add('active');
@@ -4400,14 +4474,22 @@
                 // Hide all
                 Object.values(videos).forEach(v => {
                     v.el.classList.remove('active');
-                    v.el.pause();
+                    if (v.el.tagName === 'IFRAME') {
+                        v.el.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    } else {
+                        v.el.pause();
+                    }
                 });
                 document.querySelectorAll('.thumbnail-item').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.progress-bar .bar').forEach(b => b.classList.remove('active'));
 
                 // Show selected
                 videos[id].el.classList.add('active');
-                videos[id].el.play();
+                if (videos[id].el.tagName === 'IFRAME') {
+                    videos[id].el.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                } else {
+                    videos[id].el.play();
+                }
                 document.querySelector(`[data-video="${id}"]`).classList.add('active');
                 document.getElementById('reel-title').textContent = videos[id].title;
                 document.getElementById('reel-desc').textContent = videos[id].desc;
