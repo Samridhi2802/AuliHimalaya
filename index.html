@@ -2561,6 +2561,23 @@
             .nearby-modal-media {
                 height: 320px;
             }
+            
+            /* Add line under Explore in mobile view */
+            .footer-col:nth-child(2) h4 {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 0.4rem;
+            }
+            .footer-col:nth-child(2) h4::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: var(--green-gradient);
+                border-radius: 2px;
+            }
         }
     </style>
 </head>
@@ -4104,15 +4121,31 @@
                 overlay.style.opacity = "1";
             };
 
-            // Desktop Hover
-            video.parentElement.addEventListener("mouseenter", playVideo);
-            video.parentElement.addEventListener("mouseleave", pauseVideo);
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-            // Mobile Tap
-            video.parentElement.addEventListener("click", () => {
-                if (video.paused) playVideo();
-                else pauseVideo();
-            });
+            if (isMobile) {
+                // Play like a GIF on scroll for mobile
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            playVideo();
+                        } else {
+                            pauseVideo();
+                        }
+                    });
+                }, { threshold: 0.3 });
+                observer.observe(video.parentElement);
+            } else {
+                // Desktop Hover
+                video.parentElement.addEventListener("mouseenter", playVideo);
+                video.parentElement.addEventListener("mouseleave", pauseVideo);
+                
+                // Mobile Tap fallback
+                video.parentElement.addEventListener("click", () => {
+                    if (video.paused) playVideo();
+                    else pauseVideo();
+                });
+            }
 
             // Preload poster so no flash
             video.load();
@@ -4362,23 +4395,50 @@
                 });
             });
 
-            // 2. Card Interactions (Video Play on Hover)
+            // 2. Card Interactions (Video Play on Hover or Scroll on Mobile)
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            
+            let cardObserver;
+            if (isMobile) {
+                cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const video = entry.target.querySelector('video');
+                        const iframe = entry.target.querySelector('iframe');
+                        
+                        if (entry.isIntersecting) {
+                            if (video) video.play().catch(() => { });
+                            if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        } else {
+                            if (video) {
+                                video.pause();
+                                video.currentTime = 0;
+                            }
+                            if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                        }
+                    });
+                }, { threshold: 0.5 });
+            }
+
             attrCards.forEach(card => {
                 const video = card.querySelector('video');
                 const iframe = card.querySelector('iframe');
 
-                card.addEventListener('mouseenter', () => {
-                    if (video) video.play().catch(() => { });
-                    if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                });
+                if (isMobile) {
+                    cardObserver.observe(card);
+                } else {
+                    card.addEventListener('mouseenter', () => {
+                        if (video) video.play().catch(() => { });
+                        if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    });
 
-                card.addEventListener('mouseleave', () => {
-                    if (video) {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
-                    if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                });
+                    card.addEventListener('mouseleave', () => {
+                        if (video) {
+                            video.pause();
+                            video.currentTime = 0;
+                        }
+                        if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    });
+                }
 
                 // 3. Modal Open Logic
                 card.addEventListener('click', (e) => {
