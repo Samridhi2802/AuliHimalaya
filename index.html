@@ -2585,7 +2585,7 @@
 <body>
 
     <!-- Elegant Floating WhatsApp -->
-    <a href="https://wa.me/918800229640?text=Namaste! I'd like to book a stay at Auli Himalaya Homestay"
+    <a href="https://wa.me/8800229640?text=Namaste! I'd like to book a stay at Auli Himalaya Homestay"
         class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
         <span>Book via WhatsApp</span>
@@ -3037,8 +3037,8 @@
 
                             <div
                                 style="position:absolute; right:1.5rem; bottom:6rem; display:flex; flex-direction:column; gap:1.5rem; pointer-events:auto;">
-                                <button class="control-btn" onclick="nextVideo()">Up</button>
-                                <button class="control-btn" onclick="previousVideo()">Down</button>
+                                <button class="control-btn" onclick="previousVideo()" aria-label="Previous Video"><i class="fas fa-chevron-up" style="font-size: 1.2rem;"></i></button>
+                                <button class="control-btn" onclick="nextVideo()" aria-label="Next Video"><i class="fas fa-chevron-down" style="font-size: 1.2rem;"></i></button>
                             </div>
 
                             <div style="position:absolute; bottom:1.5rem; left:1.5rem; right:1.5rem;">
@@ -4588,16 +4588,16 @@
                 }
             });
 
-            function nextVideo() {
+            window.nextVideo = function() {
                 const keys = Object.keys(videos);
                 const next = keys[(keys.indexOf(current) + 1) % keys.length];
                 play(next);
-            }
-            function previousVideo() {
+            };
+            window.previousVideo = function() {
                 const keys = Object.keys(videos);
                 const prev = keys[(keys.indexOf(current) - 1 + keys.length) % keys.length];
                 play(prev);
-            }
+            };
 
             // Start
             play('rooftop');
