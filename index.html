@@ -321,9 +321,11 @@
             top: 50%;
             left: 50%;
             width: 100vw;
-            height: 56.25vw; /* 16:9 aspect ratio */
+            height: 56.25vw;
+            /* 16:9 aspect ratio */
             min-height: 100vh;
-            min-width: 177.77vh; /* 16:9 aspect ratio */
+            min-width: 177.77vh;
+            /* 16:9 aspect ratio */
             transform: translate(-50%, -50%);
             pointer-events: none;
             border: none;
@@ -2532,7 +2534,8 @@
 
         /* YouTube Cover Fix: Supersize iframe to eliminate letterboxing */
         iframe.reel-video {
-            width: 400%; /* Wide enough to cover vertical container with landscape video */
+            width: 400%;
+            /* Wide enough to cover vertical container with landscape video */
             height: 100%;
             left: 50%;
             top: 50%;
@@ -2565,13 +2568,14 @@
             .nearby-modal-media {
                 height: 320px;
             }
-            
+
             /* Add line under Explore in mobile view */
             .footer-col:nth-child(2) h4 {
                 position: relative;
                 display: inline-block;
                 padding-bottom: 0.4rem;
             }
+
             .footer-col:nth-child(2) h4::after {
                 content: '';
                 position: absolute;
@@ -2598,14 +2602,8 @@
       justify-content: center;
       transition: opacity 0.8s ease;
     ">
-      <video 
-        id="splash-video"
-        src="vido/Auli Himalaya logo.mp4"
-        autoplay
-        muted
-        playsinline
-        style="width:100%; height:100%; object-fit:cover;"
-      ></video>
+        <video id="splash-video" src="vido/Auli Himalaya logo.mp4" autoplay muted playsinline
+            style="width:100%; height:100%; object-fit:contain;"></video>
     </div>
 
     <!-- Elegant Floating WhatsApp -->
@@ -2654,8 +2652,8 @@
                     <img src="https://images.unsplash.com/photo-1596394516093-9b9e54caf5e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                         alt="Snowy mountain landscape" class="hero__video-fallback">
 
-                    <iframe id="heroVideo" class="hero__video" 
-                        src="https://www.youtube.com/embed/x-qHJp8sBko?autoplay=1&mute=1&loop=1&playlist=x-qHJp8sBko&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1" 
+                    <iframe id="heroVideo" class="hero__video"
+                        src="https://www.youtube.com/embed/x-qHJp8sBko?autoplay=1&mute=1&loop=1&playlist=x-qHJp8sBko&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1"
                         allow="autoplay; encrypted-media" allowfullscreen
                         aria-label="Aerial drone footage of Auli mountains">
                     </iframe>
@@ -2862,9 +2860,9 @@
                             </div>
                             <!-- ✅ Video slide (YouTube) -->
                             <div class="swiper-slide video-slide">
-                                <iframe class="room-video-iframe" 
-                                    src="https://www.youtube.com/embed/wsuy6EmIYBs?enablejsapi=1&mute=1&controls=1&rel=0" 
-                                    allow="autoplay; encrypted-media" allowfullscreen 
+                                <iframe class="room-video-iframe"
+                                    src="https://www.youtube.com/embed/wsuy6EmIYBs?enablejsapi=1&mute=1&controls=1&rel=0"
+                                    allow="autoplay; encrypted-media" allowfullscreen
                                     style="width:100%; height:100%; border:none;"></iframe>
                             </div>
                         </div>
@@ -3043,8 +3041,8 @@
                     <div class="reels-player"
                         style="position:relative; background:#000; border-radius:32px; overflow:hidden;">
 
-                        <iframe id="reel-rooftop" class="reel-video active" 
-                            src="https://www.youtube.com/embed/e5HoI4LZCug?autoplay=1&mute=1&loop=1&playlist=e5HoI4LZCug&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1" 
+                        <iframe id="reel-rooftop" class="reel-video active"
+                            src="https://www.youtube.com/embed/e5HoI4LZCug?autoplay=1&mute=1&loop=1&playlist=e5HoI4LZCug&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1"
                             allow="autoplay; encrypted-media" allowfullscreen>
                         </iframe>
 
@@ -3061,8 +3059,10 @@
 
                             <div
                                 style="position:absolute; right:1.5rem; bottom:6rem; display:flex; flex-direction:column; gap:1.5rem; pointer-events:auto;">
-                                <button class="control-btn" onclick="previousVideo()" aria-label="Previous Video"><i class="fas fa-chevron-up" style="font-size: 1.2rem;"></i></button>
-                                <button class="control-btn" onclick="nextVideo()" aria-label="Next Video"><i class="fas fa-chevron-down" style="font-size: 1.2rem;"></i></button>
+                                <button class="control-btn" onclick="previousVideo()" aria-label="Previous Video"><i
+                                        class="fas fa-chevron-up" style="font-size: 1.2rem;"></i></button>
+                                <button class="control-btn" onclick="nextVideo()" aria-label="Next Video"><i
+                                        class="fas fa-chevron-down" style="font-size: 1.2rem;"></i></button>
                             </div>
 
                             <div style="position:absolute; bottom:1.5rem; left:1.5rem; right:1.5rem;">
@@ -3305,7 +3305,8 @@
                         <div class="card-media">
                             <img src="img/narsingh-temple.png" alt="Narsingh Temple"
                                 onerror="this.src='https://picsum.photos/id/1015/600/400'">
-                            <iframe src="https://www.youtube.com/embed/39Egpa9Vz6c?enablejsapi=1&mute=1&controls=0&loop=1&playlist=39Egpa9Vz6c&modestbranding=1" 
+                            <iframe
+                                src="https://www.youtube.com/embed/39Egpa9Vz6c?enablejsapi=1&mute=1&controls=0&loop=1&playlist=39Egpa9Vz6c&modestbranding=1"
                                 allow="autoplay; encrypted-media"></iframe>
                         </div>
                         <div class="card-tag">Temple</div>
@@ -3379,7 +3380,8 @@
                         <div class="card-media">
                             <img src="img/THAING_VALLEY.jpg" alt="Thaing Valley"
                                 onerror="this.src='https://picsum.photos/id/1036/600/400'">
-                            <iframe src="https://www.youtube.com/embed/_AI4Qh-SmZA?enablejsapi=1&mute=1&controls=0&loop=1&playlist=_AI4Qh-SmZA&modestbranding=1" 
+                            <iframe
+                                src="https://www.youtube.com/embed/_AI4Qh-SmZA?enablejsapi=1&mute=1&controls=0&loop=1&playlist=_AI4Qh-SmZA&modestbranding=1"
                                 allow="autoplay; encrypted-media"></iframe>
                         </div>
                         <div class="card-tag">Valley</div>
@@ -4162,7 +4164,7 @@
                 // Desktop Hover
                 video.parentElement.addEventListener("mouseenter", playVideo);
                 video.parentElement.addEventListener("mouseleave", pauseVideo);
-                
+
                 // Mobile Tap fallback
                 video.parentElement.addEventListener("click", () => {
                     if (video.paused) playVideo();
@@ -4420,14 +4422,14 @@
 
             // 2. Card Interactions (Video Play on Hover or Scroll on Mobile)
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            
+
             let cardObserver;
             if (isMobile) {
                 cardObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         const video = entry.target.querySelector('video');
                         const iframe = entry.target.querySelector('iframe');
-                        
+
                         if (entry.isIntersecting) {
                             if (video) video.play().catch(() => { });
                             if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
@@ -4612,12 +4614,12 @@
                 }
             });
 
-            window.nextVideo = function() {
+            window.nextVideo = function () {
                 const keys = Object.keys(videos);
                 const next = keys[(keys.indexOf(current) + 1) % keys.length];
                 play(next);
             };
-            window.previousVideo = function() {
+            window.previousVideo = function () {
                 const keys = Object.keys(videos);
                 const prev = keys[(keys.indexOf(current) - 1 + keys.length) % keys.length];
                 play(prev);
@@ -4657,36 +4659,36 @@
     </script>
 
     <script>
-      (function() {
-        const splash = document.getElementById('splash-screen');
-        const video  = document.getElementById('splash-video');
-        
-        // Lock scroll while splash plays
-        document.body.classList.add('splash-active');
+        (function () {
+            const splash = document.getElementById('splash-screen');
+            const video = document.getElementById('splash-video');
 
-        function hideSplash() {
-          splash.style.opacity = '0';
-          setTimeout(() => {
-            splash.style.display = 'none';
-            document.body.classList.remove('splash-active');
-          }, 800);
-        }
+            // Lock scroll while splash plays
+            document.body.classList.add('splash-active');
 
-        // Hide when video ends
-        video.addEventListener('ended', hideSplash);
+            function hideSplash() {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    document.body.classList.remove('splash-active');
+                }, 800);
+            }
 
-        // Fallback: hide after 6 seconds if video fails
-        const fallbackTimer = setTimeout(hideSplash, 6000);
+            // Hide when video ends
+            video.addEventListener('ended', hideSplash);
 
-        // Cancel fallback if video ends naturally
-        video.addEventListener('ended', () => clearTimeout(fallbackTimer));
+            // Fallback: hide after 6 seconds if video fails
+            const fallbackTimer = setTimeout(hideSplash, 6000);
 
-        // If video errors, hide immediately
-        video.addEventListener('error', hideSplash);
+            // Cancel fallback if video ends naturally
+            video.addEventListener('ended', () => clearTimeout(fallbackTimer));
 
-        // Optional: tap/click anywhere to skip
-        splash.addEventListener('click', hideSplash);
-      })();
+            // If video errors, hide immediately
+            video.addEventListener('error', hideSplash);
+
+            // Optional: tap/click anywhere to skip
+            splash.addEventListener('click', hideSplash);
+        })();
     </script>
 
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module">
