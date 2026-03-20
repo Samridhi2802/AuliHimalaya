@@ -32,6 +32,10 @@
             --shadow-hover: 0 40px 80px rgba(0, 0, 0, 0.16);
         }
 
+        body.splash-active {
+            overflow: hidden;
+        }
+
         *,
         *::before,
         *::after {
@@ -2584,6 +2588,26 @@
 
 <body>
 
+    <div id="splash-screen" style="
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease;
+    ">
+      <video 
+        id="splash-video"
+        src="vido/Auli Himalaya logo.mp4"
+        autoplay
+        muted
+        playsinline
+        style="width:100%; height:100%; object-fit:cover;"
+      ></video>
+    </div>
+
     <!-- Elegant Floating WhatsApp -->
     <a href="https://wa.me/8800229640?text=Namaste! I'd like to book a stay at Auli Himalaya Homestay"
         class="whatsapp-float" target="_blank">
@@ -2651,7 +2675,7 @@
                         <!-- Greeting Tag -->
                         <div class="hero__greeting">
                             <span class="hero__greeting-tag">
-                                <span id="greetingText" class="hero__greeting-text">नमस्ते</span>
+                                <span id="greetingText" class="hero__greeting-text">जय बद्री विशाल! 🙏</span>
                             </span>
                         </div>
 
@@ -3565,13 +3589,13 @@
 
             // ========== GREETINGS DATA ==========
             const GREETINGS = [
-                "जय बद्री विशाल!🙏",    // Hindi
+                "नमस्ते",      // Hindi
                 "Welcome",   // English
                 "Bonjour",   // French
                 "Hola",      // Spanish
                 "Ciao",      // Italian
-                "こんにちは",  // Japanese
-                "안녕하세요"   // Korean
+                "こんにちは", // Japanese
+                "안녕하세요"  // Korean
             ];
 
             // ========== CORE FUNCTIONS ==========
@@ -4631,6 +4655,40 @@
             lastScrollY = currentScrollY;
         });
     </script>
+
+    <script>
+      (function() {
+        const splash = document.getElementById('splash-screen');
+        const video  = document.getElementById('splash-video');
+        
+        // Lock scroll while splash plays
+        document.body.classList.add('splash-active');
+
+        function hideSplash() {
+          splash.style.opacity = '0';
+          setTimeout(() => {
+            splash.style.display = 'none';
+            document.body.classList.remove('splash-active');
+          }, 800);
+        }
+
+        // Hide when video ends
+        video.addEventListener('ended', hideSplash);
+
+        // Fallback: hide after 6 seconds if video fails
+        const fallbackTimer = setTimeout(hideSplash, 6000);
+
+        // Cancel fallback if video ends naturally
+        video.addEventListener('ended', () => clearTimeout(fallbackTimer));
+
+        // If video errors, hide immediately
+        video.addEventListener('error', hideSplash);
+
+        // Optional: tap/click anywhere to skip
+        splash.addEventListener('click', hideSplash);
+      })();
+    </script>
+
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module">
     </script>
 </body>
